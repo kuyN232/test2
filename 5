@@ -1,0 +1,19 @@
+!#/bin/bash
+mkdir /etc/net/ifaces/ens224
+cd /etc/net/ifaces/ens224
+touch ipv4address options
+echo "172.16.5.1/28" >> ipv4address
+echo "TYPE=eth
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+mkdir /etc/net/ifaces/ens256
+cd /etc/net/ifaces/ens256
+touch ipv4address options
+echo "172.16.4.1/28" >> ipv4address
+echo "TYPE=eth
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
