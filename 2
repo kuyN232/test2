@@ -1,0 +1,11 @@
+!#/bint/bash
+mkdir /etc/net/ifaces/ens224
+touch /etc/net/ifaces/ens224/options /etc/net/ifaces/ens224/ipv4address
+cat <<EOF > options
+TYPE=eth
+BOOTPROTO=dhcp
+DISABLED=no
+EOF	
+cat <<EOF > ipv4address
+172.16.5.1/28
+EOF	
