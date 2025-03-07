@@ -1,0 +1,29 @@
+!#/bin/bash
+mkdir /etc/net/ifaces/ens224
+cd /etc/net/ifaces/ens224
+touch ipv4address options
+echo "172.16.5.1/28
+" >> ipv4address
+echo "TYPE=eth
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+mkdir /etc/net/ifaces/ens256
+cd /etc/net/ifaces/ens256
+touch ipv4address options
+echo "172.16.4.1/28
+" >> ipv4address
+echo "TYPE=eth
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+apt-get update
+apt-get install nftables
+systemctl enable --now nftables
+nft add table ip nat
+nft add chain ip nat postrouting '{ type nat hook postrouting priority 0; }'
+nft add rule ip nat postrouting ip saddr 172.16.4.0/24 oifname "ens192" counter masquerade
+nft add rule ip nat postrouting ip saddr 172.16.5.0/24 oifname "ens192" counter masquerade
+nft list ruleset | tail -n7 | tee -a /etc/nftables/nftables.nft
