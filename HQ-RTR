@@ -118,7 +118,7 @@ echo ' $TTL  1D
       IN    NS     au-team.irpo
 10    IN    PRT    hq-cli.au-team.irpo.
 ' >> 17216200.db
-cd /var/lib/bind/etc/~bind/~zone
+cd /var/lib/bind/etc/bind/zone
 echo '$TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
