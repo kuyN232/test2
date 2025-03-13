@@ -76,7 +76,8 @@ nft list ruleset | tail -n7 | tee -a /etc/nftables/nftables.nft
 systemctl restart network
 apt-get install -y dhcp-server
 sed -i "s/DHCPDARGS=/DHCPDARGS=ens224.100" /etc/sysconfig/dhcpd
-cd /etc/dhcp/dhcpd.conf
+cd /etc/dhcp
+touch dhcpd.conf
 echo 'default-lease-time 6000;
 max-lease-time 72000;
 authoritative;
@@ -88,13 +89,10 @@ range 172.16.200.10 172.16.200.11;
 option domain-name-servers 172.16.100.2;
 }
 ' >> dhcpd.conf
+systemctl restart dhcpd
 apt-get install -y ntpd
 ntpd 193.238.131.93
 clear
 date
 ip a
-host 172.16.200.10
-host 172.16.100.1
-host 172.16.100.2
-host wiki.au-team.irpo
 hostnamectl set-hostname HQ-RTR; exec bash
