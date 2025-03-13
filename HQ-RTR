@@ -74,7 +74,7 @@ nft add rule ip nat postrouting ip saddr 172.16.100.0/24 oifname "ens192" counte
 nft add rule ip nat postrouting ip saddr 172.16.200.0/24 oifname "ens192" counter masquerade
 nft list ruleset | tail -n7 | tee -a /etc/nftables/nftables.nft
 systemctl restart network
-apt-get install bind
+apt-get install -y bind
 cd /var/lib/bind/etc
 echo "include "/ect/bind/rfc1912.conf";
 zone "au-team.irpo" {
