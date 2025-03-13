@@ -1,7 +1,7 @@
 !#/bin/bash
 cd /etc/net/ifaces/
 mkdir ens224 ens224.100 ens224.200 ens224.999 iptunnel
-cd ens224
+cd /etc/net/ifaces/ens224
 touch ipv4address options ipv4route
 echo "#172.16.14.1/28
 " >> ipv4address
@@ -10,7 +10,7 @@ BOOTPROTO=static
 DISABLED=no
 CONFIG_IPV4=yes
 " >> options
-cd etc/net/ifaces/ens224.100
+cd /etc/net/ifaces/ens224.100
 touch ipv4address options ipv4route
 echo "172.16.100.1/28
 " >> ipv4address
@@ -24,7 +24,7 @@ BOOTPROTO=static
 DISABLED=no
 CONFIG_IPV4=yes
 " >> options
-cd etc/net/ifaces/ens224.200
+cd /etc/net/ifaces/ens224.200
 touch ipv4address options ipv4route
 echo "172.16.200.1/28
 " >> ipv4address
@@ -38,7 +38,7 @@ BOOTPROTO=static
 DISABLED=no
 CONFIG_IPV4=yes
 " >> options
-cd etc/net/ifaces/ens224.999
+cd /etc/net/ifaces/ens224.999
 touch ipv4address options ipv4route
 echo "172.16.99.1/28
 " >> ipv4address
@@ -52,7 +52,7 @@ BOOTPROTO=static
 DISABLED=no
 CONFIG_IPV4=yes
 " >> options
-cd etc/net/ifaces/iptunnel
+cd /etc/net/ifaces/iptunnel
 touch ipv4address options ipv4route
 echo "172.16.77.1/28
 " >> ipv4address
@@ -105,7 +105,7 @@ echo "$TTL  1D
 1    IN    PRT    hq-rtr.au-team.irpo.
 2    IN    PTR    hq-srv.au-team.irpo.
 " >> 17216100.db
-cd /var/lib/bind/etc/~bind/~zone
+cd /var/lib/bind/etc/bind/zone
 touch 17216200
 echo "$TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
