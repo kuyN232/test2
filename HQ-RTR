@@ -58,8 +58,8 @@ echo "172.16.77.1/28
 " >> ipv4address
 echo "TYPE=iptun
 TUNTYPE=gre # тип туннеля
-TUNLOCAL=172.16.4.1
-TUNREMOTE=172.16.51
+TUNLOCAL=172.16.4.2
+TUNREMOTE=172.16.5.2
 " >> options
 echo "172.16.77.1/28
 " >> ipv4address
