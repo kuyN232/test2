@@ -76,7 +76,7 @@ nft list ruleset | tail -n7 | tee -a /etc/nftables/nftables.nft
 systemctl restart network
 apt-get install -y bind
 cd /var/lib/bind/etc
-echo "include "/ect/bind/rfc1912.conf";
+echo "
 zone "au-team.irpo" {
     type master;
     file "test.db";
