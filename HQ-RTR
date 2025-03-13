@@ -1,0 +1,82 @@
+!#/bin/bash
+cd /etc/net/ifaces/
+mkdir ens224 ens224.100 ens224.200 ens224.999 iptunnel
+cd ens224
+touch ipv4address options ipv4route
+echo "#172.16.14.1/28
+" >> ipv4address
+echo "TYPE=eth
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+cd etc/net/ifaces/ens224.100
+touch ipv4address options ipv4route
+echo "172.16.100.1/28
+" >> ipv4address
+echo "TYPE=vlan
+HOST=ens224
+VID=100
+ONBOOT=yes
+CONFIG_WIRELESS=no
+CONFIG_IPV4=yes
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+cd etc/net/ifaces/ens224.200
+touch ipv4address options ipv4route
+echo "172.16.200.1/28
+" >> ipv4address
+echo "TYPE=vlan
+HOST=ens224
+VID=100
+ONBOOT=yes
+CONFIG_WIRELESS=no
+CONFIG_IPV4=yes
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+cd etc/net/ifaces/ens224.999
+touch ipv4address options ipv4route
+echo "172.16.99.1/28
+" >> ipv4address
+echo "TYPE=vlan
+HOST=ens224
+VID=999
+ONBOOT=yes
+CONFIG_WIRELESS=no
+CONFIG_IPV4=yes
+BOOTPROTO=static
+DISABLED=no
+CONFIG_IPV4=yes
+" >> options
+cd etc/net/ifaces/iptunnel
+touch ipv4address options ipv4route
+echo "172.16.77.1/28
+" >> ipv4address
+echo "TYPE=iptun
+TUNTYPE=gre # тип туннеля
+TUNLOCAL=172.16.4.1
+TUNREMOTE=172.16.51
+" >> options
+echo "172.16.77.1/28
+" >> ipv4address
+echo "172.16.77.0/28 via 172.16.77.1
+" >> ipv4route
+apt-get update
+apt-get install -y nftables
+systemctl enable --now nftables
+nft add table ip nat
+nft add chain ip nat postrouting '{ type nat hook postrouting priority 0; }'
+nft add rule ip nat postrouting ip saddr 172.16.100.0/24 oifname "ens192" counter masquerade
+nft add rule ip nat postrouting ip saddr 172.16.200.0/24 oifname "ens192" counter masquerade
+nft list ruleset | tail -n7 | tee -a /etc/nftables/nftables.nft
+systemctl restart network
+apt-get install -y ntpd
+ntpd 193.238.131.93
+clear
+date
+ip a
+hostnamectl set-hostname HQ-RTR; exec bash
