@@ -9,11 +9,11 @@ zone "au-team.irpo" {
 
 zone "100.16.172.in-addr.arpa" {
     type master;
-    file "17216100";
+    file "17216100.db";
 };
 zone "200.16.172.in-addr.arpa" {
     type master;
-    file "17216200";
+    file "17216200.db";
 };
 ' >> local.conf
 cd /var/lib/bind/etc/bind/zone
