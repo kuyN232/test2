@@ -93,7 +93,7 @@ zone "200.16.172.in-addr.arpa" {
 " >> local.conf
 cd /var/lib/bind/etc/bind/zone
 touch 17216100.db
-echo "$TTL  1D
+echo " $TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
                 12H           ; refresh
@@ -107,7 +107,7 @@ echo "$TTL  1D
 " >> 17216100.db
 cd /var/lib/bind/etc/bind/zone
 touch 17216200.db
-echo "$TTL  1D
+echo " $TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
                 12H           ; refresh
@@ -119,7 +119,7 @@ echo "$TTL  1D
 10    IN    PRT    hq-cli.au-team.irpo.
 " >> 17216200.db
 cd /var/lib/bind/etc/~bind/~zone
-echo "$TTL  1D
+echo " $TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
                 12H           ; refresh
@@ -127,7 +127,7 @@ echo "$TTL  1D
                 1W            ; expire
                 1H            ; ncache
             )
-        IN    NS     au-team.irpo
+        IN    NS       au-team.irpo
         IN    A        127.0.0.1
 hq-rtr  IN    A        172.16.100.1
 br-rtr  IN    A        172.16.77.2
@@ -139,6 +139,7 @@ wiki    IN    CNAME    hq-rtr
 " >> test.db
 apt-get install -y ntpd
 ntpd 193.238.131.93
+systemctl restart bind
 clear
 date
 ip a
