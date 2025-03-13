@@ -30,7 +30,7 @@ echo "172.16.200.1/28
 " >> ipv4address
 echo "TYPE=vlan
 HOST=ens224
-VID=100
+VID=200
 ONBOOT=yes
 CONFIG_WIRELESS=no
 CONFIG_IPV4=yes
@@ -91,8 +91,8 @@ zone "200.16.172.in-addr.arpa" {
     file "17216200";
 };
 " >> local.conf
-cd /var/lib/bind/etc/~bind/~zone
-touch 17216100
+cd /var/lib/bind/etc/bind/zone
+touch 17216100.db
 echo "$TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
@@ -106,7 +106,7 @@ echo "$TTL  1D
 2    IN    PTR    hq-srv.au-team.irpo.
 " >> 17216100.db
 cd /var/lib/bind/etc/bind/zone
-touch 17216200
+touch 17216200.db
 echo "$TTL  1D
 @    IN    SOA  au-team.irpo. root.au-team.irpo. (
                 2025020600    ; serial
