@@ -108,4 +108,21 @@ passwd $rtr_user
 echo "Настроили интерфейсы, nftables, время, создали пользователя, поменяли имя хоста"
 nft list ruleset && ping -c4 77.88.8.8
 
+apt-get install -y dhcp-server
+sed -i "s/DHCPDARGS=/DHCPDARGS=ens224.100" /etc/sysconfig/dhcpd
+cd /etc/dhcp
+touch dhcpd.conf
+echo 'default-lease-time 6000;
+max-lease-time 72000;
+authoritative;
+# subnet Internet
+subnet 192.168.100.0 netmask 255.255.255.248 {}
+# subnet office CLI
+subnet 172.16.200.0 netmask 255.255.255.248 {
+range 172.16.200.10 172.16.200.11;
+option domain-name-servers 172.16.100.2;
+}
+' >> dhcpd.conf
+systemctl restart dhcpd
+
 exit 0
